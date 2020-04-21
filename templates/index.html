@@ -1,4 +1,9 @@
 {% extends 'all.html' %}
 {% block body %}
-<H1>Hello
+<pre>
+{{update}}
+</pre>
+<form action=/update method=post>
+<input type=submit>update</input>
+</form>
 {% endblock %}
