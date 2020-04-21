@@ -1,8 +1,7 @@
 {% extends 'all.html' %}
 {% block body %}
-<pre>
-{{update}}
-</pre>
+<code>{{'%s'%updates}}</code><p>
+<samp>{{updates[updates['last']]}}</samp><p>
 <form action=/update method=post>
 <input type=submit>update</input>
 </form>

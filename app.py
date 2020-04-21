@@ -1,14 +1,15 @@
 
 import datetime as dt
 
+updates = {}
+
 import flask
 
 app = flask.Flask(__name__)
 
 @app.route('/')
 def index():
-    with open('tmp/update') as upd:
-        return flask.render_template('index.html', update=upd.read())
+    return flask.render_template('index.html', updates=updates)
 
 @app.route('/<path:path>.css')
 def css(path):
@@ -25,8 +26,10 @@ def logo():
 # https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
 @app.route('/update', methods=['GET', 'POST'])
 def update():
-    with open('tmp/update', 'a') as upd:
-        upd.write('\n\n%s\n\n%s\n' % (dt.datetime.now(), flask.request.data))
+    key = '%s' % dt.datetime.now()
+    val = flask.request.data
+    updates['last'] = key
+    updates[key] = val
     return flask.redirect('/')
 
 

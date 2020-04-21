@@ -59,7 +59,7 @@ static/bootstrap.min.js:
 .PHONY: master shadow release zip
 
 MERGE  = Makefile README.md .gitignore .vscode
-MERGE += requirements.txt *.py $(MODULE).* static templates tmp
+MERGE += requirements.txt *.py $(MODULE).* static templates
 
 master:
 	git checkout $@
