@@ -31,7 +31,7 @@ import git
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     # git repo
-    repo = git.Repo()
+    repo = git.Repo(os.path.dirname(__file__))
     remote = repo.remotes.gh
     pull = None
     # get notification
