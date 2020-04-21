@@ -11,6 +11,7 @@ PY  = $(CWD)/bin/python3
 WGET = wget -c --no-check-certificate
 
 
+
 .PHONY: all py
 all: py
 
@@ -18,6 +19,8 @@ py: $(PY) app.py
 	$^
 
 #	$(MODULE).py $(MODULE).ini
+
+
 
 .PHONY: install
 install: $(PIP) js
@@ -50,3 +53,21 @@ static/bootstrap.min.css:
 	$(WGET) -O $@ https://bootswatch.com/3/darkly/bootstrap.min.css
 static/bootstrap.min.js:
 	$(WGET) -O $@ $(BOOTSTRAP_URL)/js/bootstrap.min.js
+
+
+
+.PHONY: master shadow release zip
+
+MERGE  = Makefile README.md .gitignore .vscode
+MERGE += requirements.txt *.py $(MODULE).* static templates
+
+master:
+	git checkout $@
+	git checkout shadow -- $(MERGE)
+shadow:
+	git checkout $@
+
+release:
+	git tag $(NOW)-$(REL)
+	git push -v && git push -v --tags
+	git checkout shadow
