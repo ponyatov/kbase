@@ -24,17 +24,9 @@ def js(path):
 def logo():
     return app.send_static_file('logo.png')
 
-
-# https://gitpython.readthedocs.io/en/stable/intro.html
-import git
-
 # https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
 @app.route('/update', methods=['GET', 'POST'])
 def update():
-    # git repo
-    repo = git.Repo(os.path.dirname(__file__))
-    remote = repo.remotes.gh
-    pull = None
     # get notification
     if flask.request.method == 'POST':
         # mark update notification
@@ -42,24 +34,7 @@ def update():
         val = flask.request.data
         updates['last'] = key
         updates[key] = val
-    # git pull
-    if not repo.is_dirty():
-        try: # master pull
-            pull = remote.pull()
-        except: # debug fallback
-            remote = repo.remotes.bb
-            pull = remote.pull()
-        # service restart
-        WSGI = '/var/www/kbase_pythonanywhere_com_wsgi.py'
-        try:
-            open(WSGI, 'a').close() # touch reload
-        except:
-            pass
-    else:
-        pull = [{'ref': remote, 'flags': 'is', 'note': 'dirty'}]
-    # send report
-    return flask.render_template('update.html', updates=updates, repo=repo, remote=remote, pull=pull[0])
-    # return flask.redirect('/')
+    return flask.render_template('update.html', updates=updates)
 
 
 if __name__ == '__main__': # local debug mode
