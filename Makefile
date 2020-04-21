@@ -27,8 +27,7 @@ update: $(PIP)
 
 $(PIP) $(PY):
 	python3 -m venv .
-	$(CWD)/bin/pip3 install -U pip
-#   	pylint autopep8
+	$(CWD)/bin/pip3 install -U pip pylint autopep8
 
 .PHONY: requirements.txt
 requirements.txt: $(PIP)
