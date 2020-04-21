@@ -1,7 +1,11 @@
 {% extends 'all.html' %}
 {% block body %}
+<code>{{'%s'%updates}}</code><p>
 <samp>{{updates[updates['last']]}}</samp><p>
 <form action=/update method=post>
 <input type=submit>update</input>
 </form>
+<pre>repo: {{repo}}</pre>
+<pre>remote: {{remote}}</pre>
+<pre>pull: {{pull.ref}}/{{pull.flags}}/{{pull.note}}</pre>
 {% endblock %}

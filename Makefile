@@ -40,6 +40,13 @@ $(PIP) $(PY):
 requirements.txt: $(PIP)
 	$< freeze | grep -v 0.0.0 > $@
 
+.PHONY: debian
+debian:
+	sudo apt update
+	sudo apt install -u \
+		python3 python3-venv \
+		mariadb-server mariadb-client
+
 .PHONY: js
 js: static/jquery.js static/bootstrap.min.css static/bootstrap.min.js
 
