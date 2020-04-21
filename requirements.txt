@@ -1,0 +1,8 @@
+-f /usr/share/pip-wheels
+click==7.1.1
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+ply==3.11
+Werkzeug==1.0.1
